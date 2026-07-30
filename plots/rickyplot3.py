@@ -1,5 +1,5 @@
-# plotting change in flux over time
-# plot of file grmhd_restart_beta_1e2_cooling_121_a9_electrons_from_113
+# plotting change in flux over dump number
+# heating model of file grmhd_restart_beta_1e2_cooling_121_a9_electrons
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,7 +8,7 @@ import re
 import os
 
 # folder with .npz files
-folder = "/Users/bonniecao/Documents/blacklight/output/ricky_outputs4"
+folder = "/Users/bonniecao/Documents/blacklight/output/ricky_outputs5"
 
 res = 256
 D = 8127.0 * 3.0857e18
@@ -32,9 +32,9 @@ for file in files:
     times.append(time)
     fluxes.append(Flux_jy)
 
-plt.plot(times, fluxes, marker="o", label="heating model")
+plt.plot(times, fluxes, label="heating model")
 
 plt.xlabel("dump number")
 plt.ylabel("flux [Jy]")
-plt.title("heating model")
+plt.title("grmhd_restart_beta_1e2_cooling_121_a9_electrons")
 plt.show()

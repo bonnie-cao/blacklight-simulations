@@ -1,10 +1,10 @@
 # General parameters
 model_type  = simulation  # type of model (simulation, formula)
-num_threads = 4           # number of threads to use in parallel
+num_threads = 128           # number of threads to use in parallel
 
 # Output parameters
 output_format = npz                            # format of output file (npz, npy, raw)
-output_file   = ../output/freq_1e11.npz  # file to be (over)written with output data
+output_file = ./output/dump_01313.npz
 output_camera = false                          # flag for saving camera details
 
 # Checkpoint parameters
@@ -15,19 +15,19 @@ checkpoint_sample_load   = false  # flag indicating simulation sampling should b
 
 # Simulation parameters
 simulation_format       = athena           # format of GRMHD data
-simulation_file         = star_wind.out2.06181.athdf  # file containing data dump
+simulation_file = star_wind.out2.01313.athdf
 simulation_multiple     = false            # flag for processing multiple files
-simulation_coord        = cks              # simulation coordinates (sks, cks)
+simulation_coord        = sks              # simulation coordinates (sks, cks)
 simulation_a            = 0.9375              # dimensionless black hole spin
-simulation_m_msun       = 4.152e6          # black hole mass in solar masses
-simulation_rho_cgs      = 1.0e-17          # unit code density in g/cm^3
+simulation_m_msun       = 4.27e6           # black hole mass in solar masses
+simulation_rho_cgs      = 2.3967154e-18          # unit code density in g/cm^3
 simulation_interp       = true             # flag indicating interpolation should be used
 simulation_block_interp = false            # flag indicating interpolation should cross blocks
 
 # Camera parameters
 camera_type       = plane  # type of camera (plane, pinhole)
 camera_r          = 1000.0   # KS radial coordinate r in gravitational units
-camera_th         = 90.0   # KS polar coordinate theta in degrees (0/180 for N/S)
+camera_th         = 0   # KS polar coordinate theta in degrees (0/180 for N/S)
 camera_ph         = 0.0    # KS azimuthal coordinate phi in degrees
 camera_urn        = 0.0    # contravariant KS normal r-velocity
 camera_uthn       = 0.0    # contravariant KS normal theta-velocity (using radians)
@@ -45,7 +45,8 @@ ray_terminate   = multiplicative  # termination condition (photon, multiplicativ
 ray_factor      = 1.005           # constant for terminate (only used for ray_terminate != photon)
 ray_integrator  = dp              # time integrator for geodesics (dp, rk4, rk2)
 ray_step        = 0.01            # step size control relative to radial coordinate
-ray_max_steps   = 6000            # maximum number of steps allowed for each geodesic
+# ray_max_steps   = 2000            # maximum number of steps allowed for each geodesic
+ray_max_steps = 10000
 ray_max_retries = 20              # maximum number of times a step can fail (dp)
 ray_tol_abs     = 1.0e-8          # absolute tolerance for taking full steps (dp)
 ray_tol_rel     = 1.0e-8          # relative tolerance for taking full steps (dp)
@@ -53,7 +54,7 @@ ray_tol_rel     = 1.0e-8          # relative tolerance for taking full steps (dp
 # Image parameters
 image_light           = true      # flag indicating real image of radiation should be produced
 image_num_frequencies = 1         # number of observation frequencies
-image_frequency       = 1e11    # frequency in Hz if image_frequency_num = 1
+image_frequency       = 2.3e11    # frequency in Hz if image_frequency_num = 1
 image_normalization   = infinity  # frequency location (camera [w/ velocity], infinity [rest])
 image_polarization    = false     # flag indicating transport should be polarized
 image_rotation_split  = false     # flag for Strang splitting rotation from emission/absorption
@@ -77,9 +78,10 @@ slow_light_on = false  # flag indicating slow light should be used
 adaptive_max_level = 0  # maximum number of adaptive levels beyond root
 
 # Plasma parameters
-plasma_mu         = 0.5         # molecular weight of fluid in proton masses
+plasma_mu         = 1.3511496876957678         # molecular weight of fluid in proton masses
 plasma_ne_ni      = 1.0         # electrons per ion
-plasma_model      = ti_te_beta  # thermal electron temperature model (ti_te_beta, code_kappa)
+plasma_model      = code_kappa  # thermal electron temperature model (ti_te_beta, code_kappa)
+simulation_kappa_name = r1  ## You will have to add this one below "plasma_model"  it can take values of r1, r2, or r3
 plasma_use_p      = true        # flag indicating total p (rather than u) should match simulation
 plasma_rat_low    = 1.0         # ion-electron temperature ratio at zero plasma beta
 plasma_rat_high   = 10.0        # ion-electron temperature ratio at infinite plasma beta
