@@ -1,4 +1,4 @@
-# plotting change in flux over dump number
+# plotting change in flux over time
 # heating model of file grmhd_restart_beta_1e2_cooling_121_a9_electrons
 
 import numpy as np
@@ -27,14 +27,15 @@ for file in files:
 
     # get number from filename
     nums = re.findall(r"\d+", os.path.basename(file))
-    time = int(nums[-1]) if nums else len(times)
+    dump_number = int(nums[-1]) if nums else len(times)
+    time = 10 * dump_number
 
     times.append(time)
     fluxes.append(Flux_jy)
 
 plt.plot(times, fluxes, label="heating model")
 
-plt.xlabel("dump number")
+plt.xlabel("time [M]")
 plt.ylabel("flux [Jy]")
 plt.title("grmhd_restart_beta_1e2_cooling_121_a9_electrons")
 plt.show()
